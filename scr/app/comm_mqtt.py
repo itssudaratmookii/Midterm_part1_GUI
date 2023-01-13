@@ -19,7 +19,8 @@ HIVEMQTT_PORT = 1883  # CONSTANT
 HIVEMQTT_BROKER = "broker.hivemq.com"
 PUBLIST_TOPIC = "Naresuan/Sudarat"
 SUBSCRIBE_TOPIC = "Naresuan/+"
-
+com_choose = ""
+me_pick = ""
 
 class MQTTConn:
     """
@@ -65,10 +66,32 @@ class MQTTConn:
             msg(mqtt.MQTTMessage): message received
 
         """
+
         print("got message: ", msg.payload)
         print("from topic", msg.topic)
         name = msg .topic .split('/')[-1]
         print("message from: ", name)
+
+        global  com_choose, me_pick
+        if name == "Computer":
+            print(msg.payload.decode())
+            com_choose = msg.payload.decode()
+            self.root.label1.config(text="Computer choose " + com_choose)
+
+        if name == "Sudarat":
+            print(msg.payload.decode())
+            me_pick = msg.payload.decode()
+
+
+        if com_choose == me_pick:
+            self.root.label2.config(text="You Draw!!")
+        elif (me_pick == "Rock" and com_choose == "Scissors") or (me_pick == "Scissors" and com_choose == "Paper") or (me_pick == "Paper" and com_choose == "Rock"):
+            self.root.label2.config(text="You Win!!")
+        else:
+            self.root.label2.config(text="You Lose!!")
+
+
+
         if msg.payload == b"On":
             sensor_state = True
         else:

@@ -25,7 +25,7 @@ class SensorUI(tk.Tk):
                                 command=self.button1_click)
         self.button1.pack(side=tk.TOP)
 
-        self.button2 = tk.Button(self, text="Pick Scissor ",
+        self.button2 = tk.Button(self, text="Pick Scissors ",
                                 command=self.button2_click)
         self.button2.pack(side=tk.TOP)
 
@@ -33,8 +33,14 @@ class SensorUI(tk.Tk):
                                 command=self.button3_click)
         self.button3.pack(side=tk.TOP)
 
-        self.label = tk.Label(text="Your Pick")
+        self.label = tk.Label(text="You Pick")
         self.label.pack(side=tk.TOP)
+
+        self.label1 = tk.Label(text="Computer choose")
+        self.label1.pack(side=tk.TOP)
+
+        self.label2 = tk.Label(text="You")
+        self.label2.pack(side=tk.TOP)
 
 
     def button1_click(self):
@@ -46,21 +52,21 @@ class SensorUI(tk.Tk):
         """
         self.label.config(text="You pick Rock")
 
-        msg = "Sudarat picked Rock"  # MQTT
+        msg = "Rock"  # MQTT
         self.comm.publish(msg)    # MQTT
 
 
 
     def button2_click(self):
         self.label.config(text="You pick Scissor")
-        msg = "Sudarat picked Scissor" # MQTT
+        msg = "Scissors"  # MQTT
         self.comm.publish(msg)  # MQTT
 
 
 
     def button3_click(self):
         self.label.config(text="You pick Paper")
-        msg = "Sudarat picked Paper"  # MQTT
+        msg = "Paper"  # MQTT
         self.comm.publish(msg)  # MQTT
 
 if __name__ == "__main__":
